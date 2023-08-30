@@ -1,31 +1,27 @@
 import sys
 
+alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+         'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 line = sys.stdin.readline().rstrip()
+length = len(line)
+a_list = [[0 for _ in range(length)] for _ in range(26)]
+for i in range(26):
+    if alpha[i] == line[0]:
+        a_list[i][0] = 1
+    for j in range(1, length):
+        if alpha[i] == line[j]:
+            a_list[i][j] = a_list[i][j - 1] + 1
+        else:
+            a_list[i][j] = a_list[i][j - 1]
+
 n = int(sys.stdin.readline().rstrip())
 s = set()
-lst = []
-tple = None
 
-for _ in range(n):
+for i in range(n):
     tmp = sys.stdin.readline().rstrip().split(' ')
-    tple = tmp[0], int(tmp[1]), int(tmp[2])
-    s.add(tmp[0])
-    lst.append(tple)
-
-l = len(line)
-d2 = dict()
-for key in s:
-    d2[key] = [0 for _ in range(l)]
-    if key == line[0]:
-        d2[key][0] = 1
-    for i in range(1, l):
-        if key == line[i]:
-            d2[key][i] = d2[key][i - 1] + 1
-        else:
-            d2[key][i] = d2[key][i - 1]
-
-for elem in lst:
-    if elem[1] == 0:
-        print(d2[elem[0]][elem[2]])
+    m = ord(tmp[0]) - ord('a')
+    x, y = int(tmp[1]), int(tmp[2])
+    if x == 0:
+        print(a_list[m][y])
     else:
-        print(d2[elem[0]][elem[2]] - d2[elem[0]][elem[1] - 1])
+        print(a_list[m][y] - a_list[m][x - 1])
