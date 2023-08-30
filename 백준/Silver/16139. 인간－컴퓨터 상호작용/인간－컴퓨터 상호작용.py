@@ -2,22 +2,19 @@ import sys
 
 line = sys.stdin.readline().rstrip()
 n = int(sys.stdin.readline().rstrip())
-d = dict()
+s = set()
 lst = []
 tple = None
 
 for _ in range(n):
     tmp = sys.stdin.readline().rstrip().split(' ')
     tple = tmp[0], int(tmp[1]), int(tmp[2])
-    if tple[0] in d:
-        d[tple[0]].append((tple[1], tple[2]))
-    else:
-        d[tple[0]] = [(tple[1], tple[2])]
+    s.add(tmp[0])
     lst.append(tple)
 
 l = len(line)
 d2 = dict()
-for key in d.keys():
+for key in s:
     d2[key] = [0 for _ in range(l)]
     if key == line[0]:
         d2[key][0] = 1
